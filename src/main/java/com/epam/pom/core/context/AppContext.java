@@ -15,6 +15,7 @@ import net.sf.cglib.proxy.Enhancer;
 public class AppContext {
 
 
+
     // TODO create custom injector for class
    public static final Injector injector = Guice.createInjector(new AbstractModule() {
        
@@ -27,11 +28,11 @@ public class AppContext {
             };
 
             for (Class clazz : classes) {
-                bind(clazz).toInstance(Enhance(clazz));
+                bind(clazz).toInstance(EnhanceProxyObject(clazz));
             }
         }
 
-        private <T> T Enhance(Class<T> clazz) {
+        private <T> T EnhanceProxyObject(Class<T> clazz) {
             return (T) Enhancer.create(
                     clazz, new MethodInvocationInterceptor()
              );
